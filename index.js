@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 //import Victor from "victor";
 //import Matter from "matter-js";
 
-let canvasSize = 256;
+let canvasSize = 512;
 const canvas = document.getElementById("mycanvas");
 const app = new PIXI.Application({
   view: canvas,
@@ -19,3 +19,14 @@ square.width = square.height = squareWidth;
 square.tint = 0xea985d;
 
 app.stage.addChild(square);
+app.ticker.add((delta) => {
+  const cursorPosition = app.renderer.plugins.interaction.mouse.global;
+  let angle =
+    Math.atan2(
+      cursorPosition.y - cursorPosition.y,
+      cursorPosition.x - cursorPosition.x
+    ) +
+    Math.PI / 2;
+
+  square.rotation = angle;
+});
